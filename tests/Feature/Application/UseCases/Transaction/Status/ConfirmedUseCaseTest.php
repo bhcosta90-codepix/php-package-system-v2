@@ -10,6 +10,7 @@ use CodePix\System\Application\UseCases\Transaction\Status\ConfirmedUseCase;
 use CodePix\System\Domain\DomainTransaction;
 
 use CodePix\System\Domain\Enum\EnumTransactionStatus;
+use Tests\Stubs\EventManager;
 use Tests\Stubs\Repository\TransactionRepository;
 
 use function PHPUnit\Framework\assertEquals;
@@ -25,7 +26,7 @@ describe("ConfirmedUseCase Unit Test", function () {
         $transactionRepository = new TransactionRepository();
         $transactionRepository->create($transaction);
 
-        $useCase = new ConfirmedUseCase(transactionRepository: $transactionRepository);
+        $useCase = new ConfirmedUseCase(transactionRepository: $transactionRepository, eventManager: new EventManager());
         $response = $useCase->exec($transaction->id());
         assertEquals(EnumTransactionStatus::CONFIRMED, $response->status);
     });

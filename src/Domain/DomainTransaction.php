@@ -6,6 +6,8 @@ namespace CodePix\System\Domain;
 
 use CodePix\System\Domain\Enum\EnumPixType;
 use CodePix\System\Domain\Enum\EnumTransactionStatus;
+use CodePix\System\Domain\Events\EventTransactionCompleted;
+use CodePix\System\Domain\Events\EventTransactionConfirmed;
 use CodePix\System\Domain\Events\EventTransactionCreating;
 use CodePix\System\Domain\Events\EventTransactionError;
 use Costa\Entity\Data;
@@ -51,6 +53,7 @@ class DomainTransaction extends Data
     {
         if ($this->status === EnumTransactionStatus::PENDING) {
             $this->status = EnumTransactionStatus::CONFIRMED;
+            $this->addEvent(new EventTransactionConfirmed($this->bank, $this->id()));
             return $this;
         }
 
@@ -64,6 +67,7 @@ class DomainTransaction extends Data
     {
         if ($this->status === EnumTransactionStatus::CONFIRMED) {
             $this->status = EnumTransactionStatus::COMPLETED;
+            $this->addEvent(new EventTransactionCompleted($this->bank, $this->id()));
             return $this;
         }
 
