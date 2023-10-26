@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use BRCas\CA\Exceptions\DomainNotFoundException;
 use CodePix\System\Application\Repository\PixKeyRepository;
 use CodePix\System\Application\UseCases\PixKey\CreateUseCase;
 
@@ -13,7 +12,7 @@ use function Tests\dataDomainPixKey;
 use function Tests\mockTimes;
 
 describe("CreateUseCase Unit Test", function () {
-    test("get pix", function () {
+    test("create a new entity", function () {
         $pixKeyRepository = mock(PixKeyRepository::class);
         mockTimes($pixKeyRepository, 'find');
         mockTimes($pixKeyRepository, 'create', $verify = dataDomainPixKey());
