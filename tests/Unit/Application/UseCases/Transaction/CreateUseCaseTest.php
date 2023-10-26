@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use BRCas\CA\Contracts\Event\EventManagerInterface;
 use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\System\Application\Repository\TransactionRepositoryInterface;
@@ -21,12 +22,18 @@ describe("CreateUseCase Unit Test", function () {
         mockTimes($pixKeyRepository, "find", $mockDomainPixKey);
 
         $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+        mockTimes($mockDomainTransaction, 'getEvents', []);
+
         $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, "create", $mockDomainTransaction);
+
+        $mockEventManager = mock(EventManagerInterface::class);
+        mockTimes($mockEventManager, 'dispatch');
 
         $useCase = new CreateUseCase(
             pixKeyRepository: $pixKeyRepository,
             transactionRepository: $transactionRepository,
+            eventManager: $mockEventManager
         );
 
         $useCase->exec(
@@ -41,6 +48,7 @@ describe("CreateUseCase Unit Test", function () {
 
     test("exception when to pix do not exist", function () {
         $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+        mockTimes($mockDomainTransaction, 'getEvents', []);
 
         $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, "find");
@@ -48,12 +56,16 @@ describe("CreateUseCase Unit Test", function () {
         $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, "create", $mockDomainTransaction);
 
+        $mockEventManager = mock(EventManagerInterface::class);
+        mockTimes($mockEventManager, 'dispatch');
+
         $useCase = new CreateUseCase(
             pixKeyRepository: $pixKeyRepository,
             transactionRepository: $transactionRepository,
+            eventManager: $mockEventManager,
         );
 
-        $r = $useCase->exec(
+        $useCase->exec(
             "af4d8146-c829-46b6-8642-da0a0bdc2884",
             "9a439706-13ff-4a33-99ab-0bb80bb6b567",
             "testing",
@@ -72,9 +84,12 @@ describe("CreateUseCase Unit Test", function () {
         $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, "create");
 
+        $mockEventManager = mock(EventManagerInterface::class);
+
         $useCase = new CreateUseCase(
             pixKeyRepository: $pixKeyRepository,
             transactionRepository: $transactionRepository,
+            eventManager: $mockEventManager,
         );
 
         expect(

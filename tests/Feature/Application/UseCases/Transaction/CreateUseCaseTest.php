@@ -6,6 +6,7 @@ use CodePix\System\Application\UseCases\Transaction\CreateUseCase;
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\Enum\EnumPixType;
 use CodePix\System\Domain\Enum\EnumTransactionStatus;
+use Tests\Stubs\EventManager;
 use Tests\Stubs\Repository\PixKeyRepository;
 use Tests\Stubs\Repository\TransactionRepository;
 
@@ -21,6 +22,7 @@ describe("CreateUseCase Unit Test", function () {
         $useCase = new CreateUseCase(
             pixKeyRepository: $pixKeyRepository,
             transactionRepository: $transactionRepository,
+            eventManager: new EventManager(),
         );
 
         $response = $useCase->exec(
@@ -42,6 +44,7 @@ describe("CreateUseCase Unit Test", function () {
         $useCase = new CreateUseCase(
             pixKeyRepository: $pixKeyRepository,
             transactionRepository: $transactionRepository,
+            eventManager: new EventManager(),
         );
 
         $response = $useCase->exec(

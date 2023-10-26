@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CodePix\System\Application\UseCases\Transaction;
 
+use BRCas\CA\Contracts\Event\EventManagerInterface;
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
@@ -17,7 +18,8 @@ class CreateUseCase
 {
     public function __construct(
         protected PixKeyRepositoryInterface $pixKeyRepository,
-        protected TransactionRepositoryInterface $transactionRepository
+        protected TransactionRepositoryInterface $transactionRepository,
+        protected EventManagerInterface $eventManager,
     ) {
         //
     }
@@ -52,6 +54,7 @@ class CreateUseCase
         }
 
         if ($response = $this->transactionRepository->create($response)) {
+            $this->eventManager->dispatch($response->getEvents());
             return $response;
         }
 
