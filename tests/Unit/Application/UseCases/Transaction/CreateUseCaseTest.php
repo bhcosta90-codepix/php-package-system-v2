@@ -16,12 +16,12 @@ use function Tests\mockTimes;
 
 describe("CreateUseCase Unit Test", function () {
     test("create a new entity", function () {
-        $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
+        $mockDomainPixKey = mock(DomainPixKey::class);
 
         $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, "find", $mockDomainPixKey);
 
-        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+        $mockDomainTransaction = mock(DomainTransaction::class);
         mockTimes($mockDomainTransaction, 'getEvents', []);
 
         $transactionRepository = mock(TransactionRepositoryInterface::class);
@@ -47,7 +47,7 @@ describe("CreateUseCase Unit Test", function () {
     });
 
     test("exception when to pix do not exist", function () {
-        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+        $mockDomainTransaction = mock(DomainTransaction::class);
         mockTimes($mockDomainTransaction, 'getEvents', []);
 
         $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
@@ -76,7 +76,7 @@ describe("CreateUseCase Unit Test", function () {
     });
 
     test("exception when unable to register the transaction", function () {
-        $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
+        $mockDomainPixKey = mock(DomainPixKey::class);
 
         $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, "find", $mockDomainPixKey);

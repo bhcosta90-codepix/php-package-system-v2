@@ -14,7 +14,7 @@ use function Tests\mockTimes;
 
 describe("CreateUseCase Unit Test", function () {
     test("create a new entity", function () {
-        $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
+        $mockDomainPixKey = mock(DomainPixKey::class);
 
         $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, 'find');
@@ -27,7 +27,7 @@ describe("CreateUseCase Unit Test", function () {
     });
 
     test("exception when to register a pix that already exists", function () {
-        $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
+        $mockDomainPixKey = mock(DomainPixKey::class);
 
         $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, 'find', $mockDomainPixKey);

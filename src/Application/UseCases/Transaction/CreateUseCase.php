@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace CodePix\System\Application\UseCases\Transaction;
 
 use BRCas\CA\Contracts\Event\EventManagerInterface;
-use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\System\Application\Repository\TransactionRepositoryInterface;

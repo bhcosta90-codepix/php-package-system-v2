@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\Enum\EnumPixType;
 use Costa\Entity\ValueObject\Uuid;
 use Mockery\MockInterface;
@@ -18,7 +17,7 @@ function mockTimes(MockInterface $mock, string $action, $response = null, $times
     }
 }
 
-function dataDomainTransaction(): array
+function arrayDomainTransaction(): array
 {
     return [
         "bank" => Uuid::make(),
@@ -30,7 +29,7 @@ function dataDomainTransaction(): array
     ];
 }
 
-function dataDomainPixKey(): array
+function arrayDomainPixKey(): array
 {
     return [
         "kind" => EnumPixType::EMAIL,
@@ -38,7 +37,7 @@ function dataDomainPixKey(): array
     ];
 }
 
-function dataMock(): array
+function arrayMock(): array
 {
     return [
         'id' => (string)Uuid::make(),

@@ -18,7 +18,7 @@ class EventTransactionError implements EventInterface
     {
         return [
             'bank' => (string)$this->bank,
-            'id' => (string) $this->id,
+            'id' => (string)$this->id,
         ];
     }
 }
