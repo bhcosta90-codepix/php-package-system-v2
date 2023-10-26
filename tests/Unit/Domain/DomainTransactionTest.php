@@ -66,21 +66,41 @@ describe("DomainTransaction Unit Tests", function () {
         ], $transaction->toArray());
     });
 
-    describe("validation a entity", function () {
-        test("validate property value", function () {
-            expect(fn() => new DomainTransaction(
-                description: 'testing',
-                value: 0,
-                pix: $this->pix,
-            ))->toThrow(NotificationException::class);
+    describe("validation an entity", function () {
+        describe("at constructor", function(){
+            test("validate property value", function () {
+                expect(fn() => new DomainTransaction(
+                    description: 'testing',
+                    value: 0,
+                    pix: $this->pix,
+                ))->toThrow(NotificationException::class);
+            });
+
+            test("validate property description", function () {
+                expect(fn() => new DomainTransaction(
+                    description: 'te',
+                    value: 0.01,
+                    pix: $this->pix,
+                ))->toThrow(NotificationException::class);
+            });
         });
 
-        test("validate property description", function () {
-            expect(fn() => new DomainTransaction(
-                description: 'te',
-                value: 0.01,
-                pix: $this->pix,
-            ))->toThrow(NotificationException::class);
+        describe("at make", function(){
+            test("validate property value", function () {
+                expect(fn() => DomainTransaction::make(
+                    description: 'testing',
+                    value: 0,
+                    pix: $this->pix,
+                ))->toThrow(NotificationException::class);
+            });
+
+            test("validate property description", function () {
+                expect(fn() => DomainTransaction::make(
+                    description: 'te',
+                    value: 0.01,
+                    pix: $this->pix,
+                ))->toThrow(NotificationException::class);
+            });
         });
     });
 });
