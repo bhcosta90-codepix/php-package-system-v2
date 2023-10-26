@@ -30,5 +30,14 @@
             "type": "vcs",
             "url": "https://github.com/bhcosta90/php-entity-package"
         }
-    ]
+    ],
+    "require-dev": {
+        "pestphp/pest": "^2.24",
+        "captainhook/captainhook": "^5.18"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
 }

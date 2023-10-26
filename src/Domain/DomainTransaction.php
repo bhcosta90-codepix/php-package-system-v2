@@ -12,7 +12,7 @@ class DomainTransaction extends Data
     public function __construct(
         protected string $description,
         protected float $value,
-        protected EnumPixType $pix,
+        protected EnumPixType $kind,
         protected string $key,
     ) {
         parent::__construct();
