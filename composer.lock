@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75c74a76f3176621f6cb8cbb23f52825",
+    "content-hash": "f4489c3c76ef53ab1acc98f6ce61b41a",
     "packages": [
         {
             "name": "bhcosta90/clean-architecture",
@@ -116,7 +116,7 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/bhcosta90/php-entity-package/tree/master",
+                "source": "https://github.com/bhcosta90/php-entity-package/tree/1.0.25",
                 "issues": "https://github.com/bhcosta90/php-entity-package/issues"
             },
             "time": "2023-10-26T17:19:45+00:00"
@@ -5081,8 +5081,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "bhcosta90/clean-architecture": 20,
-        "bhcosta90/entity": 20
+        "bhcosta90/clean-architecture": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
