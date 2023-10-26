@@ -8,7 +8,6 @@ use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\System\Application\Repository\PixKeyRepository;
 use CodePix\System\Application\Repository\TransactionRepository;
-use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\DomainTransaction;
 use CodePix\System\Domain\Enum\EnumPixType;
 use Costa\Entity\Exceptions\NotificationException;
@@ -38,13 +37,6 @@ class CreateUseCase
     ): DomainTransaction {
         $kind = EnumPixType::from($kind);
 
-        if (!$this->pixKeyRepository->find($kind, $key)) {
-            throw new DomainNotFoundException(
-                DomainPixKey::class,
-                "kind: {$kind->value} and key: {$key}"
-            );
-        }
-
         $response = new DomainTransaction(
             bank: new Uuid($bank),
             reference: new Uuid($id),
@@ -53,6 +45,10 @@ class CreateUseCase
             kind: $kind,
             key: $key,
         );
+
+        if (!$this->pixKeyRepository->find($kind, $key)) {
+            $response->error("Pix not found");
+        }
 
         if ($response = $this->transactionRepository->create($response)) {
             return $response;
