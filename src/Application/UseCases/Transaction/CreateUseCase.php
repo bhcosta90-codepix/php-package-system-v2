@@ -23,7 +23,6 @@ class CreateUseCase
     }
 
     /**
-     * @throws DomainNotFoundException
      * @throws UseCaseException
      * @throws NotificationException
      */
