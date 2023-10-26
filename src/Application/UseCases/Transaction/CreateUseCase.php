@@ -38,7 +38,7 @@ class CreateUseCase
     ): DomainTransaction {
         $kind = EnumPixType::from($kind);
 
-        if (!$pix = $this->pixKeyRepository->find($kind, $key)) {
+        if (!$this->pixKeyRepository->find($kind, $key)) {
             throw new DomainNotFoundException(
                 DomainPixKey::class,
                 "kind: {$kind->value} and key: {$key}"
