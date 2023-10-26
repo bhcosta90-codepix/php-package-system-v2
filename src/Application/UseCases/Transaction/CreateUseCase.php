@@ -8,6 +8,7 @@ use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\System\Application\Repository\PixKeyRepository;
 use CodePix\System\Application\Repository\TransactionRepository;
+use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\DomainTransaction;
 use CodePix\System\Domain\Enum\EnumPixType;
 use Costa\Entity\Exceptions\NotificationException;
@@ -48,6 +49,8 @@ class CreateUseCase
 
         if (!$this->pixKeyRepository->find($kind, $key)) {
             $response->error("Pix not found");
+        } else {
+            $response->pending();
         }
 
         if ($response = $this->transactionRepository->create($response)) {

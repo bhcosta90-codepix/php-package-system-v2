@@ -6,6 +6,8 @@ namespace CodePix\System\Domain\Enum;
 
 enum EnumTransactionStatus: string
 {
+    case OPEN = 'open';
+
     case PENDING = 'pending';
 
     case CONFIRMED = 'confirmed';

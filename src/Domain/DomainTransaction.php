@@ -6,13 +6,15 @@ namespace CodePix\System\Domain;
 
 use CodePix\System\Domain\Enum\EnumPixType;
 use CodePix\System\Domain\Enum\EnumTransactionStatus;
+use CodePix\System\Domain\Events\EventTransactionCreating;
+use CodePix\System\Domain\Events\EventTransactionError;
 use Costa\Entity\Data;
 use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\ValueObject\Uuid;
 
 class DomainTransaction extends Data
 {
-    protected EnumTransactionStatus $status = EnumTransactionStatus::PENDING;
+    protected EnumTransactionStatus $status = EnumTransactionStatus::OPEN;
 
     protected ?string $cancelDescription = null;
 
@@ -27,10 +29,18 @@ class DomainTransaction extends Data
         parent::__construct();
     }
 
+    public function pending(): self
+    {
+        $this->status = EnumTransactionStatus::PENDING;
+        $this->addEvent(new EventTransactionCreating($this));
+        return $this;
+    }
+
     public function error(string $message): self
     {
         $this->cancelDescription = $message;
         $this->status = EnumTransactionStatus::ERROR;
+        $this->addEvent(new EventTransactionError($this->bank, $this->id()));
         return $this;
     }
 

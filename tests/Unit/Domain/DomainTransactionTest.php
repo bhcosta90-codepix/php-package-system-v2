@@ -36,7 +36,7 @@ describe("DomainTransaction Unit Tests", function () {
             'id' => $entity->id(),
             'created_at' => $entity->createdAt(),
             'updated_at' => $entity->updatedAt(),
-            'status' => 'pending',
+            'status' => 'open',
             'cancel_description' => null,
         ], $entity->toArray());
     });
@@ -64,7 +64,7 @@ describe("DomainTransaction Unit Tests", function () {
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
-            'status' => 'pending',
+            'status' => 'open',
             'cancel_description' => null,
         ], $entity->toArray());
 
@@ -90,7 +90,7 @@ describe("DomainTransaction Unit Tests", function () {
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
-            'status' => 'pending',
+            'status' => 'open',
             'cancel_description' => null,
         ], $entity->toArray());
 
@@ -135,7 +135,7 @@ describe("DomainTransaction Unit Tests", function () {
                 kind: EnumPixType::EMAIL,
                 key: 'test@test.com'
             );
-            $entity->confirmed();
+            $entity->pending()->confirmed();
             assertEquals('confirmed', $entity->status->value);
         });
 
@@ -148,7 +148,7 @@ describe("DomainTransaction Unit Tests", function () {
                 kind: EnumPixType::EMAIL,
                 key: 'test@test.com'
             );
-            $entity->confirmed();
+            $entity->pending()->confirmed();
 
             expect(fn() => $entity->confirmed())->toThrow(
                 new EntityException('Only pending transaction can be confirmed')
@@ -166,7 +166,7 @@ describe("DomainTransaction Unit Tests", function () {
                 kind: EnumPixType::EMAIL,
                 key: 'test@test.com'
             );
-            $entity->confirmed()->completed();
+            $entity->pending()->confirmed()->completed();
             assertEquals('completed', $entity->status->value);
         });
 
