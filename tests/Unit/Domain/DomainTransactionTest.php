@@ -15,15 +15,13 @@ describe("DomainTransaction Unit Tests", function () {
         $transaction = new DomainTransaction(
             description: 'testing',
             value: 50,
-            kind: EnumPixType::EMAIL,
-            key: 'test@test.com',
+            pix: $pix = mockDomainPixKey(),
         );
 
         assertEquals([
             'description' => 'testing',
             'value' => 50,
-            'kind' => 'email',
-            'key' => 'test@test.com',
+            'pix' => $pix->toArray(),
             'id' => $transaction->id(),
             'created_at' => $transaction->createdAt(),
             'updated_at' => $transaction->updatedAt(),
@@ -34,8 +32,7 @@ describe("DomainTransaction Unit Tests", function () {
         $transaction = DomainTransaction::make([
             'description' => 'testing',
             'value' => 50,
-            'kind' => EnumPixType::from('email'),
-            'key' => 'test@test.com',
+            'pix' => $pix = mockDomainPixKey(),
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
@@ -44,8 +41,7 @@ describe("DomainTransaction Unit Tests", function () {
         assertEquals([
             'description' => 'testing',
             'value' => 50,
-            'kind' => 'email',
-            'key' => 'test@test.com',
+            'pix' => $pix->toArray(),
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
@@ -54,8 +50,7 @@ describe("DomainTransaction Unit Tests", function () {
         $transaction = DomainTransaction::make([
             'description' => 'testing',
             'value' => 50,
-            'kind' => EnumPixType::from('email'),
-            'key' => 'test@test.com',
+            'pix' => $pix = mockDomainPixKey(),
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'createdAt' => '2020-01-01 00:00:00',
             'updatedAt' => '2020-01-01 00:00:00',
@@ -64,8 +59,7 @@ describe("DomainTransaction Unit Tests", function () {
         assertEquals([
             'description' => 'testing',
             'value' => 50,
-            'kind' => 'email',
-            'key' => 'test@test.com',
+            'pix' => $pix->toArray(),
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',

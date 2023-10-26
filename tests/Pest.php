@@ -24,6 +24,7 @@
 |
 */
 
+use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\DomainTransaction;
 use CodePix\System\Domain\Enum\EnumPixType;
 use Mockery\MockInterface;
@@ -42,6 +43,20 @@ expect()->extend('toBeOne', function () {
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
+
+function mockDomainPixKey(): DomainPixKey|MockInterface
+{
+    $response = mock(DomainPixKey::class, [
+        "kind" => EnumPixType::EMAIL,
+        "key" => 'test@test.com',
+    ]);
+    $response->shouldReceive('toArray')->andReturn([
+        "kind" => EnumPixType::EMAIL->value,
+        "key" => 'test@test.com',
+    ]);
+
+    return $response;
+}
 
 function mockDomainTransaction(): DomainTransaction|MockInterface
 {
