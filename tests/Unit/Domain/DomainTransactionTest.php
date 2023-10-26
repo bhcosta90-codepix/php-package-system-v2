@@ -97,6 +97,16 @@ describe("DomainTransaction Unit Tests", function () {
         assertEquals('testing', $entity->cancelDescription);
     });
 
+    test("setting confirmation a transaction", function(){
+        $entity = new DomainTransaction(
+            description: 'testing',
+            value: 50,
+            pix: $this->pix,
+        );
+        $entity->confirmed();
+        assertEquals('confirmed', $entity->status->value);
+    });
+
     describe("validation an entity", function () {
         describe("at constructor", function(){
             test("validate property value", function () {

@@ -34,4 +34,11 @@ class DomainTransaction extends Data
         $this->cancelDescription = $message;
         $this->status = EnumTransactionStatus::ERROR;
     }
+
+    public function confirmed(): void
+    {
+        if ($this->status === EnumTransactionStatus::PENDING) {
+            $this->status = EnumTransactionStatus::CONFIRMED;
+        }
+    }
 }
