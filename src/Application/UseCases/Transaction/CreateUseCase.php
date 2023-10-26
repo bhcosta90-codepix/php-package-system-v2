@@ -28,8 +28,14 @@ class CreateUseCase
      * @throws UseCaseException
      * @throws NotificationException
      */
-    public function exec(string $bank, string $id, string $description, float $value, string $kind, string $key): DomainTransaction
-    {
+    public function exec(
+        string $bank,
+        string $id,
+        string $description,
+        float $value,
+        string $kind,
+        string $key
+    ): DomainTransaction {
         $kind = EnumPixType::from($kind);
 
         if (!$pix = $this->pixKeyRepository->find($kind, $key)) {
@@ -47,7 +53,11 @@ class CreateUseCase
             pix: $pix,
         );
 
-        return $this->transactionRepository->create($response) ?: throw new UseCaseException(
+        if ($response = $this->transactionRepository->create($response)) {
+            return $response;
+        }
+
+        throw new UseCaseException(
             "We were unable to register this transaction in our database"
         );
     }

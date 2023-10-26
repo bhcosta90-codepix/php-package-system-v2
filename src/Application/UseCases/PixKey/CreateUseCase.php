@@ -35,7 +35,11 @@ class CreateUseCase
             throw new EntityException("This pix is already registered in our database");
         }
 
-        return $this->pixKeyRepository->create($response) ?: throw new UseCaseException(
+        if ($response = $this->pixKeyRepository->create($response)) {
+            return $response;
+        }
+
+        throw new UseCaseException(
             "We were unable to register this pix in our database"
         );
     }

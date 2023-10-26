@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\System\Application\Repository\PixKeyRepository;
 use CodePix\System\Application\UseCases\PixKey\CreateUseCase;
 use Costa\Entity\Exceptions\EntityException;
@@ -29,6 +30,17 @@ describe("CreateUseCase Unit Test", function () {
         $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository);
         expect(fn() => $useCase->exec('id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
             new EntityException("This pix is already registered in our database")
+        );
+    });
+
+    test("exception when register a new pix", function () {
+        $pixKeyRepository = mock(PixKeyRepository::class);
+        mockTimes($pixKeyRepository, 'find');
+        mockTimes($pixKeyRepository, 'create');
+
+        $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository);
+        expect(fn() => $useCase->exec('id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
+            new UseCaseException("We were unable to register this pix in our database")
         );
     });
 });
