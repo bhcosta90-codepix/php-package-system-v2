@@ -10,7 +10,7 @@
     "pre-commit": {
         "enabled": true,
         "actions": [{
-            "action": "./vendor/bin/pest --coverage --min=99 --parallel"
+            "action": "./vendor/bin/pest --coverage --min=100 --parallel"
         }]
     },
     "prepare-commit-msg": {
