@@ -9,7 +9,6 @@ use CodePix\System\Domain\DomainPixKey;
 use Costa\Entity\Exceptions\EntityException;
 
 use function PHPUnit\Framework\assertEquals;
-use function Tests\dataDomainPixKey;
 use function Tests\mockTimes;
 
 describe("CreateUseCase Unit Test", function () {

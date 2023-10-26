@@ -6,7 +6,6 @@ use CodePix\System\Domain\DomainTransaction;
 use CodePix\System\Domain\Events\EventTransactionCreating;
 
 use function PHPUnit\Framework\assertEquals;
-use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;
 
 describe("EventTransactionCreating Unit Test", function () {

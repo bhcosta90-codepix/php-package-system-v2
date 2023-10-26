@@ -10,8 +10,6 @@ use CodePix\System\Application\UseCases\Transaction\CreateUseCase;
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\DomainTransaction;
 
-use function Tests\dataDomainPixKey;
-use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;
 
 describe("CreateUseCase Unit Test", function () {

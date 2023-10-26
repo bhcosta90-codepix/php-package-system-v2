@@ -7,7 +7,6 @@ use CodePix\System\Application\Repository\TransactionRepositoryInterface;
 use CodePix\System\Application\UseCases\Transaction\FindUseCase;
 use CodePix\System\Domain\DomainTransaction;
 
-use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;
 
 describe("FindUseCase Unit Test", function () {

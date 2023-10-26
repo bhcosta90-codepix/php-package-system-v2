@@ -12,7 +12,6 @@ use Costa\Entity\ValueObject\Uuid;
 
 use function PHPUnit\Framework\assertEquals;
 use function Tests\arrayDomainPixKey;
-use function Tests\dataDomainPixKey;
 
 beforeEach(fn() => $this->pix = new DomainPixKey(...arrayDomainPixKey()));
 

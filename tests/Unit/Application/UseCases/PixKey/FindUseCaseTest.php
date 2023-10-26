@@ -7,7 +7,6 @@ use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\System\Application\UseCases\PixKey\FindUseCase;
 use CodePix\System\Domain\DomainPixKey;
 
-use function Tests\dataDomainPixKey;
 use function Tests\mockTimes;
 
 describe("FindUseCase Unit Test", function () {

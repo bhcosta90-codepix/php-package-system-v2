@@ -9,7 +9,6 @@ use CodePix\System\Application\Repository\TransactionRepositoryInterface;
 use CodePix\System\Application\UseCases\Transaction\Status\CompletedUseCase;
 use CodePix\System\Domain\DomainTransaction;
 
-use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;
 
 
