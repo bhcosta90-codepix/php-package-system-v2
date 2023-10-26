@@ -7,23 +7,22 @@ use BRCas\CA\Exceptions\UseCaseException;
 use CodePix\System\Application\Repository\TransactionRepository;
 use CodePix\System\Application\UseCases\Transaction\Status\CompletedUseCase;
 use CodePix\System\Domain\DomainTransaction;
-use CodePix\System\Domain\Enum\EnumTransactionStatus;
 
-use function PHPUnit\Framework\assertEquals;
 use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;
 
 
 describe("CompletedUseCase Unit Test", function () {
     test("save a transaction", function () {
+        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+        mockTimes($mockDomainTransaction, 'completed');
+
         $transactionRepository = mock(TransactionRepository::class);
-        mockTimes($transactionRepository, 'find', $entity = dataDomainTransaction());
-        mockTimes($transactionRepository, 'save', $entity);
-        $entity->confirmed();
+        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
+        mockTimes($transactionRepository, 'save', $mockDomainTransaction);
 
         $useCase = new CompletedUseCase(transactionRepository: $transactionRepository);
-        $entity = $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60');
-        assertEquals($entity->status, EnumTransactionStatus::COMPLETED);
+        $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60');
     });
 
     test("exception when find a transaction", function () {
@@ -37,10 +36,12 @@ describe("CompletedUseCase Unit Test", function () {
     });
 
     test("exception when save a transaction", function () {
+        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+        mockTimes($mockDomainTransaction, 'completed');
+
         $transactionRepository = mock(TransactionRepository::class);
-        mockTimes($transactionRepository, 'find', $entity = dataDomainTransaction());
+        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
         mockTimes($transactionRepository, 'save');
-        $entity->confirmed();
 
         $useCase = new CompletedUseCase(transactionRepository: $transactionRepository);
         expect(fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(

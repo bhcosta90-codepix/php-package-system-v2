@@ -16,13 +16,16 @@ use function Tests\mockTimes;
 
 describe("ConfirmedUseCase Unit Test", function () {
     test("save a transaction", function () {
+
+        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+        mockTimes($mockDomainTransaction, 'confirmed');
+
         $transactionRepository = mock(TransactionRepository::class);
-        mockTimes($transactionRepository, 'find', $entity = dataDomainTransaction());
-        mockTimes($transactionRepository, 'save', $entity);
+        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
+        mockTimes($transactionRepository, 'save', $mockDomainTransaction);
 
         $useCase = new ConfirmedUseCase(transactionRepository: $transactionRepository);
-        $entity = $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60');
-        assertEquals($entity->status, EnumTransactionStatus::CONFIRMED);
+        $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60');
     });
 
     test("exception when find a transaction", function () {
@@ -36,8 +39,11 @@ describe("ConfirmedUseCase Unit Test", function () {
     });
 
     test("exception when save a transaction", function () {
+        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+        mockTimes($mockDomainTransaction, 'confirmed');
+
         $transactionRepository = mock(TransactionRepository::class);
-        mockTimes($transactionRepository, 'find', dataDomainTransaction());
+        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
         mockTimes($transactionRepository, 'save');
 
         $useCase = new ConfirmedUseCase(transactionRepository: $transactionRepository);

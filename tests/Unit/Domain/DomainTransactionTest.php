@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\DomainTransaction;
 use CodePix\System\Domain\Enum\EnumTransactionStatus;
 use Costa\Entity\Exceptions\EntityException;
@@ -11,7 +12,7 @@ use Costa\Entity\ValueObject\Uuid;
 use function PHPUnit\Framework\assertEquals;
 use function Tests\dataDomainPixKey;
 
-beforeEach(fn() => $this->pix = dataDomainPixKey());
+beforeEach(fn() => $this->pix = new DomainPixKey(...dataDomainPixKey()));
 
 describe("DomainTransaction Unit Tests", function () {
     test("creating a new transaction", function () {

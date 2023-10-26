@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests;
 
 use CodePix\System\Domain\DomainPixKey;
-use CodePix\System\Domain\DomainTransaction;
 use CodePix\System\Domain\Enum\EnumPixType;
 use Costa\Entity\ValueObject\Uuid;
 use Mockery\MockInterface;
@@ -19,43 +18,24 @@ function mockTimes(MockInterface $mock, string $action, $response = null, $times
     }
 }
 
-function dataDomainTransaction(): DomainTransaction
+function dataDomainTransaction(): array
 {
-    return new DomainTransaction(
-        bank: Uuid::make(),
-        reference: Uuid::make(),
-        description: 'testing',
-        value: 50,
-        pix: dataDomainPixKey(),
-    );
+    return [
+        "bank" => Uuid::make(),
+        "reference" => Uuid::make(),
+        "description" => 'testing',
+        "value" => 50,
+        "pix" => new DomainPixKey(...dataDomainPixKey()),
+    ];
 }
 
-function dataDomainPixKey(): DomainPixKey
+function dataDomainPixKey(): array
 {
-    return new DomainPixKey(
-        kind: EnumPixType::EMAIL,
-        key: 'test@test.com',
-    );
+    return [
+        "kind" => EnumPixType::EMAIL,
+        "key" => 'test@test.com',
+    ];
 }
-
-//function mockDomainTransaction(int $times = 1): DomainTransaction|MockInterface
-//{
-//    $response = Mockery::mock(DomainTransaction::class, [
-//        "description" => 'testing',
-//        "value" => 50,
-//        "kind" => EnumPixType::EMAIL,
-//        "key" => 'test@test.com',
-//    ]);
-//
-//    $response->shouldReceive('toArray')->andReturn(dataMock() + [
-//            "description" => 'testing',
-//            "value" => 50,
-//            "kind" => "email",
-//            "key" => 'test@test.com',
-//        ])->times($times);
-//
-//    return $response;
-//}
 
 function dataMock(): array
 {

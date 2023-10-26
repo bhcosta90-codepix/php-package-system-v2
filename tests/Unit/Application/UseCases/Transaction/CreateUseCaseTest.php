@@ -9,17 +9,23 @@ use CodePix\System\Application\Repository\TransactionRepository;
 use CodePix\System\Application\UseCases\Transaction\CreateUseCase;
 use CodePix\System\Domain\DomainPixKey;
 
+use CodePix\System\Domain\DomainTransaction;
+
 use function Tests\dataDomainPixKey;
 use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;
 
 describe("CreateUseCase Unit Test", function () {
     test("create a new entity", function () {
-        $pixKeyRepository = mock(PixKeyRepository::class);
-        mockTimes($pixKeyRepository, "find", dataDomainPixKey());
+        $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
+        mockTimes($mockDomainPixKey, 'toArray');
 
+        $pixKeyRepository = mock(PixKeyRepository::class);
+        mockTimes($pixKeyRepository, "find", $mockDomainPixKey);
+
+        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
         $transactionRepository = mock(TransactionRepository::class);
-        mockTimes($transactionRepository, "create", dataDomainTransaction());
+        mockTimes($transactionRepository, "create", $mockDomainTransaction);
 
         $useCase = new CreateUseCase(
             pixKeyRepository: $pixKeyRepository,
@@ -62,8 +68,11 @@ describe("CreateUseCase Unit Test", function () {
     });
 
     test("exception when unable to register the transaction", function () {
+        $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
+        mockTimes($mockDomainPixKey, 'toArray');
+
         $pixKeyRepository = mock(PixKeyRepository::class);
-        mockTimes($pixKeyRepository, "find", dataDomainPixKey());
+        mockTimes($pixKeyRepository, "find", $mockDomainPixKey);
 
         $transactionRepository = mock(TransactionRepository::class);
         mockTimes($transactionRepository, "create");

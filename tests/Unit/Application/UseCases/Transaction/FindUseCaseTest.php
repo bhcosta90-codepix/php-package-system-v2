@@ -12,8 +12,10 @@ use function Tests\mockTimes;
 
 describe("FindUseCase Unit Test", function () {
     test("get pix", function () {
+        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
+
         $transactionRepository = mock(TransactionRepository::class);
-        mockTimes($transactionRepository, 'find', dataDomainTransaction());
+        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
 
         $useCase = new FindUseCase(transactionRepository: $transactionRepository);
         $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60');
