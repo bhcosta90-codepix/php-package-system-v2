@@ -8,7 +8,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "tests/data.php"
+        ]
     },
     "authors": [
         {
@@ -34,7 +37,8 @@
     "require-dev": {
         "pestphp/pest": "^2.24",
         "captainhook/captainhook": "^5.18",
-        "mockery/mockery": "^1.6"
+        "mockery/mockery": "^1.6",
+        "symfony/var-dumper": "^6.3"
     },
     "config": {
         "allow-plugins": {

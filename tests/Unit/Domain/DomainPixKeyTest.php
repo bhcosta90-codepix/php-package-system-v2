@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\Enum\EnumPixType;
-use Costa\Entity\Data;
 
 use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertInstanceOf;
 
 describe("DomainPixKey Unit Tests", function () {
+
     test("creating a new transaction", function () {
         $entity = new DomainPixKey(
             kind: EnumPixType::EMAIL,
@@ -57,11 +56,5 @@ describe("DomainPixKey Unit Tests", function () {
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
         ], $entity->toArray());
-    });
-
-    test("testing a mock function", function () {
-        $mock = mockDomainPixKey();
-        assertInstanceOf(DomainPixKey::class, $mock);
-        assertInstanceOf(Data::class, $mock);
     });
 });

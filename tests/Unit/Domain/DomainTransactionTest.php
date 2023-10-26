@@ -3,25 +3,24 @@
 declare(strict_types=1);
 
 use CodePix\System\Domain\DomainTransaction;
-use CodePix\System\Domain\Enum\EnumPixType;
-
-use Costa\Entity\Data;
 
 use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertInstanceOf;
+use function Tests\dataDomainPixKey;
+
+beforeEach(fn() => $this->pix = dataDomainPixKey());
 
 describe("DomainTransaction Unit Tests", function () {
     test("creating a new transaction", function () {
         $transaction = new DomainTransaction(
             description: 'testing',
             value: 50,
-            pix: $pix = mockDomainPixKey(),
+            pix: $this->pix,
         );
 
         assertEquals([
             'description' => 'testing',
             'value' => 50,
-            'pix' => $pix->toArray(),
+            'pix' => $this->pix->toArray(),
             'id' => $transaction->id(),
             'created_at' => $transaction->createdAt(),
             'updated_at' => $transaction->updatedAt(),
@@ -32,7 +31,7 @@ describe("DomainTransaction Unit Tests", function () {
         $transaction = DomainTransaction::make([
             'description' => 'testing',
             'value' => 50,
-            'pix' => $pix = mockDomainPixKey(),
+            'pix' => $this->pix,
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
@@ -41,7 +40,7 @@ describe("DomainTransaction Unit Tests", function () {
         assertEquals([
             'description' => 'testing',
             'value' => 50,
-            'pix' => $pix->toArray(),
+            'pix' => $this->pix->toArray(),
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
@@ -50,7 +49,7 @@ describe("DomainTransaction Unit Tests", function () {
         $transaction = DomainTransaction::make([
             'description' => 'testing',
             'value' => 50,
-            'pix' => $pix = mockDomainPixKey(),
+            'pix' => $this->pix,
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'createdAt' => '2020-01-01 00:00:00',
             'updatedAt' => '2020-01-01 00:00:00',
@@ -59,16 +58,10 @@ describe("DomainTransaction Unit Tests", function () {
         assertEquals([
             'description' => 'testing',
             'value' => 50,
-            'pix' => $pix->toArray(),
+            'pix' => $this->pix->toArray(),
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
         ], $transaction->toArray());
-    });
-
-    test("testing a mock function", function(){
-        $mock = mockDomainTransaction();
-        assertInstanceOf(DomainTransaction::class, $mock);
-        assertInstanceOf(Data::class, $mock);
     });
 });
