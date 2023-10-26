@@ -28,7 +28,7 @@ class CreateUseCase
      * @throws UseCaseException
      * @throws NotificationException
      */
-    public function exec(string $id, string $description, float $value, string $kind, string $key): DomainTransaction
+    public function exec(string $bank, string $id, string $description, float $value, string $kind, string $key): DomainTransaction
     {
         $kind = EnumPixType::from($kind);
 
@@ -40,6 +40,7 @@ class CreateUseCase
         }
 
         $response = new DomainTransaction(
+            bank: new Uuid($bank),
             reference: new Uuid($id),
             description: $description,
             value: $value,
