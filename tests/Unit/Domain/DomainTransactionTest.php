@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use CodePix\System\Domain\DomainTransaction;
+use Costa\Entity\Exceptions\NotificationException;
 
 use function PHPUnit\Framework\assertEquals;
 use function Tests\dataDomainPixKey;
@@ -27,7 +28,7 @@ describe("DomainTransaction Unit Tests", function () {
         ], $transaction->toArray());
     });
 
-    test("making a transaction", function(){
+    test("making a transaction", function () {
         $transaction = DomainTransaction::make([
             'description' => 'testing',
             'value' => 50,
@@ -63,5 +64,23 @@ describe("DomainTransaction Unit Tests", function () {
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
         ], $transaction->toArray());
+    });
+
+    describe("validation a entity", function () {
+        test("validate property value", function () {
+            expect(fn() => new DomainTransaction(
+                description: 'testing',
+                value: 0,
+                pix: $this->pix,
+            ))->toThrow(NotificationException::class);
+        });
+
+        test("validate property description", function () {
+            expect(fn() => new DomainTransaction(
+                description: 'te',
+                value: 0.01,
+                pix: $this->pix,
+            ))->toThrow(NotificationException::class);
+        });
     });
 });
