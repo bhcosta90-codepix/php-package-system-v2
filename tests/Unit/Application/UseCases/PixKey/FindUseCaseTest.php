@@ -5,7 +5,6 @@ declare(strict_types=1);
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use CodePix\System\Application\Repository\PixKeyRepository;
 use CodePix\System\Application\UseCases\PixKey\FindUseCase;
-
 use CodePix\System\Domain\DomainPixKey;
 
 use function Tests\dataDomainPixKey;

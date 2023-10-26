@@ -7,6 +7,7 @@ namespace CodePix\System\Domain;
 use CodePix\System\Domain\Enum\EnumTransactionStatus;
 use Costa\Entity\Data;
 use Costa\Entity\Exceptions\EntityException;
+use Costa\Entity\ValueObject\Uuid;
 
 class DomainTransaction extends Data
 {
@@ -15,19 +16,12 @@ class DomainTransaction extends Data
     protected ?string $cancelDescription = null;
 
     public function __construct(
+        protected Uuid $reference,
         protected string $description,
         protected float $value,
         protected DomainPixKey $pix,
     ) {
         parent::__construct();
-    }
-
-    protected function rules(): array
-    {
-        return [
-            'value' => 'numeric|min:0.01',
-            'description' => 'min:3',
-        ];
     }
 
     public function error(string $message): self
@@ -61,5 +55,13 @@ class DomainTransaction extends Data
         }
 
         throw new EntityException('Only confirmed transactions can be completed');
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'value' => 'numeric|min:0.01',
+            'description' => 'min:3',
+        ];
     }
 }

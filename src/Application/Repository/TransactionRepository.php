@@ -12,5 +12,5 @@ interface TransactionRepository
 
     public function create(DomainTransaction $entity): ?DomainTransaction;
 
-    public function save(DomainTransaction $entity): bool;
+    public function save(DomainTransaction $entity): ?DomainTransaction;
 }

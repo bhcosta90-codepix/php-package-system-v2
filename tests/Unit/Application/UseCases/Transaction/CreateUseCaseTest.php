@@ -26,7 +26,7 @@ describe("CreateUseCase Unit Test", function () {
             transactionRepository: $transactionRepository,
         );
 
-        $useCase->exec("testing", 50, "email", "test@test.com");
+        $useCase->exec("9a439706-13ff-4a33-99ab-0bb80bb6b567", "testing", 50, "email", "test@test.com");
     });
 
     test("exception when to pix do not exist", function () {
@@ -40,7 +40,8 @@ describe("CreateUseCase Unit Test", function () {
             transactionRepository: $transactionRepository,
         );
 
-        expect(fn() => $useCase->exec("testing", 50, "email", "test@test.com"))->toThrow(
+        expect(fn() => $useCase->exec("9a439706-13ff-4a33-99ab-0bb80bb6b567", "testing", 50, "email", "test@test.com")
+        )->toThrow(
             new DomainNotFoundException(DomainPixKey::class, "kind: email and key: test@test.com")
         );
     });
@@ -57,7 +58,8 @@ describe("CreateUseCase Unit Test", function () {
             transactionRepository: $transactionRepository,
         );
 
-        expect(fn() => $useCase->exec("testing", 50, "email", "test@test.com"))->toThrow(
+        expect(fn() => $useCase->exec("9a439706-13ff-4a33-99ab-0bb80bb6b567", "testing", 50, "email", "test@test.com")
+        )->toThrow(
             new UseCaseException("We were unable to register this transaction in our database")
         );
     });

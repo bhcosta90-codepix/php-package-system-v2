@@ -6,6 +6,7 @@ use CodePix\System\Domain\DomainTransaction;
 use CodePix\System\Domain\Enum\EnumTransactionStatus;
 use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\Exceptions\NotificationException;
+use Costa\Entity\ValueObject\Uuid;
 
 use function PHPUnit\Framework\assertEquals;
 use function Tests\dataDomainPixKey;
@@ -15,12 +16,14 @@ beforeEach(fn() => $this->pix = dataDomainPixKey());
 describe("DomainTransaction Unit Tests", function () {
     test("creating a new transaction", function () {
         $entity = new DomainTransaction(
+            reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
             description: 'testing',
             value: 50,
             pix: $this->pix,
         );
 
         assertEquals([
+            'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
             'pix' => $this->pix->toArray(),
@@ -34,6 +37,7 @@ describe("DomainTransaction Unit Tests", function () {
 
     test("making a transaction", function () {
         $entity = DomainTransaction::make([
+            'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
             'pix' => $this->pix,
@@ -43,6 +47,7 @@ describe("DomainTransaction Unit Tests", function () {
         ]);
 
         assertEquals([
+            'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
             'pix' => $this->pix->toArray(),
@@ -54,6 +59,7 @@ describe("DomainTransaction Unit Tests", function () {
         ], $entity->toArray());
 
         $entity = DomainTransaction::make([
+            'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
             'pix' => $this->pix,
@@ -63,6 +69,7 @@ describe("DomainTransaction Unit Tests", function () {
         ]);
 
         assertEquals([
+            'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
             'pix' => $this->pix->toArray(),
@@ -74,6 +81,7 @@ describe("DomainTransaction Unit Tests", function () {
         ], $entity->toArray());
 
         $entity = DomainTransaction::make([
+            'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
             'pix' => $this->pix,
@@ -86,8 +94,9 @@ describe("DomainTransaction Unit Tests", function () {
         assertEquals('confirmed', $entity->status->value);
     });
 
-    test("setting a error at transaction", function(){
+    test("setting a error at transaction", function () {
         $entity = new DomainTransaction(
+            reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
             description: 'testing',
             value: 50,
             pix: $this->pix,
@@ -98,9 +107,10 @@ describe("DomainTransaction Unit Tests", function () {
         assertEquals('testing', $entity->cancelDescription);
     });
 
-    describe("setting confirmation a transaction", function(){
-        test("success", function(){
+    describe("setting confirmation a transaction", function () {
+        test("success", function () {
             $entity = new DomainTransaction(
+                reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
                 pix: $this->pix,
@@ -109,21 +119,25 @@ describe("DomainTransaction Unit Tests", function () {
             assertEquals('confirmed', $entity->status->value);
         });
 
-        test("error", function(){
+        test("error", function () {
             $entity = new DomainTransaction(
+                reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
                 pix: $this->pix,
             );
             $entity->confirmed();
 
-            expect(fn() => $entity->confirmed())->toThrow(new EntityException('Only pending transaction can be confirmed'));
+            expect(fn() => $entity->confirmed())->toThrow(
+                new EntityException('Only pending transaction can be confirmed')
+            );
         });
     });
 
-    describe("setting completed a transaction", function(){
-        test("success", function(){
+    describe("setting completed a transaction", function () {
+        test("success", function () {
             $entity = new DomainTransaction(
+                reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
                 pix: $this->pix,
@@ -132,20 +146,24 @@ describe("DomainTransaction Unit Tests", function () {
             assertEquals('completed', $entity->status->value);
         });
 
-        test("error", function(){
+        test("error", function () {
             $entity = new DomainTransaction(
+                reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
                 pix: $this->pix,
             );
-            expect(fn() => $entity->completed())->toThrow(new EntityException('Only confirmed transactions can be completed'));
+            expect(fn() => $entity->completed())->toThrow(
+                new EntityException('Only confirmed transactions can be completed')
+            );
         });
     });
 
     describe("validation an entity", function () {
-        describe("at constructor", function(){
+        describe("at constructor", function () {
             test("validate property value", function () {
                 expect(fn() => new DomainTransaction(
+                    reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                     description: 'testing',
                     value: 0,
                     pix: $this->pix,
@@ -154,6 +172,7 @@ describe("DomainTransaction Unit Tests", function () {
 
             test("validate property description", function () {
                 expect(fn() => new DomainTransaction(
+                    reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                     description: 'te',
                     value: 0.01,
                     pix: $this->pix,
@@ -161,9 +180,10 @@ describe("DomainTransaction Unit Tests", function () {
             });
         });
 
-        describe("at make", function(){
+        describe("at make", function () {
             test("validate property value", function () {
                 expect(fn() => DomainTransaction::make(
+                    reference: '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
                     description: 'testing',
                     value: 0,
                     pix: $this->pix,
@@ -172,6 +192,7 @@ describe("DomainTransaction Unit Tests", function () {
 
             test("validate property description", function () {
                 expect(fn() => DomainTransaction::make(
+                    reference: '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
                     description: 'te',
                     value: 0.01,
                     pix: $this->pix,

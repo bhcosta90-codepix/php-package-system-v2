@@ -8,7 +8,6 @@ use BRCas\CA\Exceptions\DomainNotFoundException;
 use CodePix\System\Application\Repository\PixKeyRepository;
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\Enum\EnumPixType;
-use Costa\Entity\Exceptions\NotificationException;
 
 class FindUseCase
 {

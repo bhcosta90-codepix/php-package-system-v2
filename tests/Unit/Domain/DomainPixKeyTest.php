@@ -8,7 +8,6 @@ use CodePix\System\Domain\Enum\EnumPixType;
 use function PHPUnit\Framework\assertEquals;
 
 describe("DomainPixKey Unit Tests", function () {
-
     test("creating a new transaction", function () {
         $entity = new DomainPixKey(
             kind: EnumPixType::EMAIL,

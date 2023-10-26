@@ -11,8 +11,8 @@ use CodePix\System\Application\Repository\TransactionRepository;
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\DomainTransaction;
 use CodePix\System\Domain\Enum\EnumPixType;
-use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\Exceptions\NotificationException;
+use Costa\Entity\ValueObject\Uuid;
 
 class CreateUseCase
 {
@@ -28,7 +28,7 @@ class CreateUseCase
      * @throws UseCaseException
      * @throws NotificationException
      */
-    public function exec(string $description, float $value, string $kind, string $key): DomainTransaction
+    public function exec(string $id, string $description, float $value, string $kind, string $key): DomainTransaction
     {
         $kind = EnumPixType::from($kind);
 
@@ -40,6 +40,7 @@ class CreateUseCase
         }
 
         $response = new DomainTransaction(
+            reference: new Uuid($id),
             description: $description,
             value: $value,
             pix: $pix,

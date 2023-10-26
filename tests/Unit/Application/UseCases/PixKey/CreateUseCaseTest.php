@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use CodePix\System\Application\Repository\PixKeyRepository;
 use CodePix\System\Application\UseCases\PixKey\CreateUseCase;
-
 use Costa\Entity\Exceptions\EntityException;
 
 use function PHPUnit\Framework\assertEquals;
@@ -23,11 +22,13 @@ describe("CreateUseCase Unit Test", function () {
         assertEquals($verify, $response);
     });
 
-    test("exception when to register a pix that already exists", function(){
+    test("exception when to register a pix that already exists", function () {
         $pixKeyRepository = mock(PixKeyRepository::class);
         mockTimes($pixKeyRepository, 'find', dataDomainPixKey());
 
         $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository);
-        expect(fn() => $useCase->exec('id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(new EntityException("This pix is already registered in our database"));
+        expect(fn() => $useCase->exec('id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
+            new EntityException("This pix is already registered in our database")
+        );
     });
 });

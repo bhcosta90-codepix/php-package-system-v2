@@ -22,6 +22,7 @@ function mockTimes(MockInterface $mock, string $action, $response = null, $times
 function dataDomainTransaction(): DomainTransaction
 {
     return new DomainTransaction(
+        reference: Uuid::make(),
         description: 'testing',
         value: 50,
         pix: dataDomainPixKey(),

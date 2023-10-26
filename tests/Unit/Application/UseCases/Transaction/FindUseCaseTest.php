@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use CodePix\System\Application\Repository\TransactionRepository;
-
 use CodePix\System\Application\UseCases\Transaction\FindUseCase;
-
 use CodePix\System\Domain\DomainTransaction;
 
 use function Tests\dataDomainTransaction;
@@ -29,5 +27,5 @@ describe("FindUseCase Unit Test", function () {
         expect(fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
             new DomainNotFoundException(DomainTransaction::class, "7b9ad99b-7c44-461b-a682-b2e87e9c3c60")
         );
-    })->todo();
+    });
 });
