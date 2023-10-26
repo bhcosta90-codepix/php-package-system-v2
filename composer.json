@@ -1,0 +1,34 @@
+{
+    "name": "bhcosta90/package-system-v2",
+    "autoload": {
+        "psr-4": {
+            "CodePix\\System\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bruno Costa",
+            "email": "bhcosta90@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.1",
+        "bhcosta90/entity": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bhcosta90/php-domain-package"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/bhcosta90/php-entity-package"
+        }
+    ]
+}
