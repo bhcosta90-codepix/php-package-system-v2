@@ -37,7 +37,6 @@ describe("DomainTransaction Unit Tests", function () {
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
         ]);
-
         assertEquals([
             'description' => 'testing',
             'value' => 50,
