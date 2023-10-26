@@ -5,7 +5,10 @@ declare(strict_types=1);
 use CodePix\System\Domain\DomainTransaction;
 use CodePix\System\Domain\Enum\EnumPixType;
 
+use Costa\Entity\Data;
+
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertInstanceOf;
 
 describe("DomainTransaction Unit Tests", function () {
     test("creating a new transaction", function () {
@@ -67,5 +70,11 @@ describe("DomainTransaction Unit Tests", function () {
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
         ], $transaction->toArray());
+    });
+
+    test("Testing a mock function", function(){
+        $mock = mockDomainTransaction();
+        assertInstanceOf(DomainTransaction::class, $mock);
+        assertInstanceOf(Data::class, $mock);
     });
 });

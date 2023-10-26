@@ -24,6 +24,10 @@
 |
 */
 
+use CodePix\System\Domain\DomainTransaction;
+use CodePix\System\Domain\Enum\EnumPixType;
+use Mockery\MockInterface;
+
 expect()->extend('toBeOne', function () {
     return $this->toBe(1);
 });
@@ -39,7 +43,12 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function mockDomainTransaction(): DomainTransaction|MockInterface
 {
-    // ..
+    return mock(DomainTransaction::class, [
+        "description" => 'testing',
+        "value" => 50,
+        "kind" => EnumPixType::EMAIL,
+        "key" => 'test@test.com',
+    ]);
 }
