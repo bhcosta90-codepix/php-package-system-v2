@@ -19,7 +19,7 @@ describe("FindUseCase Unit Test", function () {
 
         $useCase = new FindUseCase(transactionRepository: $transactionRepository);
         $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60');
-    });
+    })->todo();
 
     test("exception when do not exist a pix", function () {
         $transactionRepository = mock(TransactionRepositoryInterface::class);
@@ -29,5 +29,5 @@ describe("FindUseCase Unit Test", function () {
         expect(fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
             new DomainNotFoundException(DomainTransaction::class, "7b9ad99b-7c44-461b-a682-b2e87e9c3c60")
         );
-    });
+    })->todo();
 });

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use BRCas\CA\Exceptions\UseCaseException;
-use CodePix\System\Application\Repository\PixKeyRepository;
+use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\System\Application\UseCases\PixKey\CreateUseCase;
 use CodePix\System\Domain\DomainPixKey;
 use Costa\Entity\Exceptions\EntityException;
@@ -14,10 +14,9 @@ use function Tests\mockTimes;
 
 describe("CreateUseCase Unit Test", function () {
     test("create a new entity", function () {
-
         $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
 
-        $pixKeyRepository = mock(PixKeyRepository::class);
+        $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, 'find');
         mockTimes($pixKeyRepository, 'create', $mockDomainPixKey);
 
@@ -30,7 +29,7 @@ describe("CreateUseCase Unit Test", function () {
     test("exception when to register a pix that already exists", function () {
         $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
 
-        $pixKeyRepository = mock(PixKeyRepository::class);
+        $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, 'find', $mockDomainPixKey);
 
         $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository);
@@ -40,7 +39,7 @@ describe("CreateUseCase Unit Test", function () {
     });
 
     test("exception when register a new pix", function () {
-        $pixKeyRepository = mock(PixKeyRepository::class);
+        $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, 'find');
         mockTimes($pixKeyRepository, 'create');
 

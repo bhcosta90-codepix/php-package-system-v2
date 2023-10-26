@@ -7,9 +7,9 @@ namespace CodePix\System\Application\Repository;
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\Enum\EnumPixType;
 
-interface PixKeyRepository
+interface PixKeyRepositoryInterface
 {
-    public function find(EnumPixType $type, string $key): ?DomainPixKey;
+    public function find(EnumPixType $kind, string $key): ?DomainPixKey;
 
     public function create(DomainPixKey $entity): ?DomainPixKey;
 }

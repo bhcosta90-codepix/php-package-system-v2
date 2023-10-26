@@ -6,9 +6,8 @@ namespace CodePix\System\Application\UseCases\Transaction;
 
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
-use CodePix\System\Application\Repository\PixKeyRepository;
-use CodePix\System\Application\Repository\TransactionRepository;
-use CodePix\System\Domain\DomainPixKey;
+use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
+use CodePix\System\Application\Repository\TransactionRepositoryInterface;
 use CodePix\System\Domain\DomainTransaction;
 use CodePix\System\Domain\Enum\EnumPixType;
 use Costa\Entity\Exceptions\NotificationException;
@@ -17,8 +16,8 @@ use Costa\Entity\ValueObject\Uuid;
 class CreateUseCase
 {
     public function __construct(
-        protected PixKeyRepository $pixKeyRepository,
-        protected TransactionRepository $transactionRepository
+        protected PixKeyRepositoryInterface $pixKeyRepository,
+        protected TransactionRepositoryInterface $transactionRepository
     ) {
         //
     }

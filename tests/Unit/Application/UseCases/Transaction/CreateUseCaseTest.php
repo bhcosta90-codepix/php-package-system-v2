@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use BRCas\CA\Exceptions\UseCaseException;
-use CodePix\System\Application\Repository\PixKeyRepository;
-use CodePix\System\Application\Repository\TransactionRepository;
+use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
+use CodePix\System\Application\Repository\TransactionRepositoryInterface;
 use CodePix\System\Application\UseCases\Transaction\CreateUseCase;
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\DomainTransaction;
@@ -17,11 +17,11 @@ describe("CreateUseCase Unit Test", function () {
     test("create a new entity", function () {
         $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
 
-        $pixKeyRepository = mock(PixKeyRepository::class);
+        $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, "find", $mockDomainPixKey);
 
         $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
-        $transactionRepository = mock(TransactionRepository::class);
+        $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, "create", $mockDomainTransaction);
 
         $useCase = new CreateUseCase(
@@ -42,10 +42,10 @@ describe("CreateUseCase Unit Test", function () {
     test("exception when to pix do not exist", function () {
         $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
 
-        $pixKeyRepository = mock(PixKeyRepository::class);
+        $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, "find");
 
-        $transactionRepository = mock(TransactionRepository::class);
+        $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, "create", $mockDomainTransaction);
 
         $useCase = new CreateUseCase(
@@ -66,10 +66,10 @@ describe("CreateUseCase Unit Test", function () {
     test("exception when unable to register the transaction", function () {
         $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
 
-        $pixKeyRepository = mock(PixKeyRepository::class);
+        $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, "find", $mockDomainPixKey);
 
-        $transactionRepository = mock(TransactionRepository::class);
+        $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, "create");
 
         $useCase = new CreateUseCase(

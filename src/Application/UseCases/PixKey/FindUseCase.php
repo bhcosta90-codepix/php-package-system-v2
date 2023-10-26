@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace CodePix\System\Application\UseCases\PixKey;
 
 use BRCas\CA\Exceptions\DomainNotFoundException;
-use CodePix\System\Application\Repository\PixKeyRepository;
+use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\Enum\EnumPixType;
 
 class FindUseCase
 {
-    public function __construct(protected PixKeyRepository $pixKeyRepository)
+    public function __construct(protected PixKeyRepositoryInterface $pixKeyRepository)
     {
         //
     }

@@ -6,7 +6,7 @@ namespace CodePix\System\Application\Repository;
 
 use CodePix\System\Domain\DomainTransaction;
 
-interface TransactionRepository
+interface TransactionRepositoryInterface
 {
     public function find(string $id): ?DomainTransaction;
 

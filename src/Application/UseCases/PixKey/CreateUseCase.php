@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CodePix\System\Application\UseCases\PixKey;
 
 use BRCas\CA\Exceptions\UseCaseException;
-use CodePix\System\Application\Repository\PixKeyRepository;
+use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\Enum\EnumPixType;
 use Costa\Entity\Exceptions\EntityException;
@@ -13,7 +13,7 @@ use Costa\Entity\Exceptions\NotificationException;
 
 class CreateUseCase
 {
-    public function __construct(protected PixKeyRepository $pixKeyRepository)
+    public function __construct(protected PixKeyRepositoryInterface $pixKeyRepository)
     {
         //
     }

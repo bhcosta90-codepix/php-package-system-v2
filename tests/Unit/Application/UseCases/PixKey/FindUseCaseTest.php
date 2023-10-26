@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use BRCas\CA\Exceptions\DomainNotFoundException;
-use CodePix\System\Application\Repository\PixKeyRepository;
+use CodePix\System\Application\Repository\PixKeyRepositoryInterface;
 use CodePix\System\Application\UseCases\PixKey\FindUseCase;
 use CodePix\System\Domain\DomainPixKey;
 
@@ -12,10 +12,9 @@ use function Tests\mockTimes;
 
 describe("FindUseCase Unit Test", function () {
     test("get pix", function () {
-
         $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
 
-        $pixKeyRepository = mock(PixKeyRepository::class);
+        $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, 'find', $mockDomainPixKey);
 
         $useCase = new FindUseCase(pixKeyRepository: $pixKeyRepository);
@@ -23,7 +22,7 @@ describe("FindUseCase Unit Test", function () {
     });
 
     test("exception when do not exist a pix", function () {
-        $pixKeyRepository = mock(PixKeyRepository::class);
+        $pixKeyRepository = mock(PixKeyRepositoryInterface::class);
         mockTimes($pixKeyRepository, 'find');
 
         $useCase = new FindUseCase(pixKeyRepository: $pixKeyRepository);

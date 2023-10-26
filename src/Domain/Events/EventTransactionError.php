@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace CodePix\System\Domain\Events;
 
-use CodePix\System\Domain\DomainTransaction;
 use Costa\Entity\Contracts\EventInterface;
 use Costa\Entity\ValueObject\Uuid;
 
@@ -18,7 +17,7 @@ class EventTransactionError implements EventInterface
     public function payload(): array
     {
         return [
-            'bank' => (string) $this->bank,
+            'bank' => (string)$this->bank,
             'id' => $this->id,
         ];
     }

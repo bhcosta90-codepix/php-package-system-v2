@@ -6,13 +6,13 @@ namespace CodePix\System\Application\UseCases\Transaction\Status;
 
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
-use CodePix\System\Application\Repository\TransactionRepository;
+use CodePix\System\Application\Repository\TransactionRepositoryInterface;
 use CodePix\System\Domain\DomainTransaction;
 use Costa\Entity\Exceptions\EntityException;
 
 class CompletedUseCase
 {
-    public function __construct(protected TransactionRepository $transactionRepository)
+    public function __construct(protected TransactionRepositoryInterface $transactionRepository)
     {
         //
     }

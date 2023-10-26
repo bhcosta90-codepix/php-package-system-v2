@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use BRCas\CA\Exceptions\DomainNotFoundException;
 use BRCas\CA\Exceptions\UseCaseException;
-use CodePix\System\Application\Repository\TransactionRepository;
+use CodePix\System\Application\Repository\TransactionRepositoryInterface;
 use CodePix\System\Application\UseCases\Transaction\Status\CompletedUseCase;
 use CodePix\System\Domain\DomainTransaction;
 
@@ -17,7 +17,7 @@ describe("CompletedUseCase Unit Test", function () {
         $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
         mockTimes($mockDomainTransaction, 'completed');
 
-        $transactionRepository = mock(TransactionRepository::class);
+        $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, 'find', $mockDomainTransaction);
         mockTimes($transactionRepository, 'save', $mockDomainTransaction);
 
@@ -26,7 +26,7 @@ describe("CompletedUseCase Unit Test", function () {
     });
 
     test("exception when find a transaction", function () {
-        $transactionRepository = mock(TransactionRepository::class);
+        $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, 'find');
 
         $useCase = new CompletedUseCase(transactionRepository: $transactionRepository);
@@ -39,7 +39,7 @@ describe("CompletedUseCase Unit Test", function () {
         $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
         mockTimes($mockDomainTransaction, 'completed');
 
-        $transactionRepository = mock(TransactionRepository::class);
+        $transactionRepository = mock(TransactionRepositoryInterface::class);
         mockTimes($transactionRepository, 'find', $mockDomainTransaction);
         mockTimes($transactionRepository, 'save');
 
