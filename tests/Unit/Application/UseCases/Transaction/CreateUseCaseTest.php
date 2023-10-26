@@ -18,7 +18,6 @@ use function Tests\mockTimes;
 describe("CreateUseCase Unit Test", function () {
     test("create a new entity", function () {
         $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
-        mockTimes($mockDomainPixKey, 'toArray');
 
         $pixKeyRepository = mock(PixKeyRepository::class);
         mockTimes($pixKeyRepository, "find", $mockDomainPixKey);
@@ -69,7 +68,6 @@ describe("CreateUseCase Unit Test", function () {
 
     test("exception when unable to register the transaction", function () {
         $mockDomainPixKey = mock(DomainPixKey::class, dataDomainPixKey());
-        mockTimes($mockDomainPixKey, 'toArray');
 
         $pixKeyRepository = mock(PixKeyRepository::class);
         mockTimes($pixKeyRepository, "find", $mockDomainPixKey);

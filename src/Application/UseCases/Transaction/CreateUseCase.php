@@ -50,7 +50,8 @@ class CreateUseCase
             reference: new Uuid($id),
             description: $description,
             value: $value,
-            pix: $pix,
+            kind: $kind,
+            key: $key,
         );
 
         if ($response = $this->transactionRepository->create($response)) {

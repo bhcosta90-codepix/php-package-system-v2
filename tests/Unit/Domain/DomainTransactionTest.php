@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\DomainTransaction;
+use CodePix\System\Domain\Enum\EnumPixType;
 use CodePix\System\Domain\Enum\EnumTransactionStatus;
 use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\Exceptions\NotificationException;
@@ -21,7 +22,8 @@ describe("DomainTransaction Unit Tests", function () {
             reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
             description: 'testing',
             value: 50,
-            pix: $this->pix,
+            kind: EnumPixType::EMAIL,
+            key: 'test@test.com'
         );
 
         assertEquals([
@@ -29,7 +31,8 @@ describe("DomainTransaction Unit Tests", function () {
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
-            'pix' => $this->pix->toArray(),
+            "kind" => "email",
+            "key" => 'test@test.com',
             'id' => $entity->id(),
             'created_at' => $entity->createdAt(),
             'updated_at' => $entity->updatedAt(),
@@ -44,7 +47,8 @@ describe("DomainTransaction Unit Tests", function () {
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
-            'pix' => $this->pix,
+            "kind" => EnumPixType::EMAIL,
+            "key" => 'test@test.com',
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
@@ -55,7 +59,8 @@ describe("DomainTransaction Unit Tests", function () {
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
-            'pix' => $this->pix->toArray(),
+            "kind" => "email",
+            "key" => 'test@test.com',
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
@@ -68,7 +73,8 @@ describe("DomainTransaction Unit Tests", function () {
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
-            'pix' => $this->pix,
+            "kind" => EnumPixType::EMAIL,
+            "key" => 'test@test.com',
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'createdAt' => '2020-01-01 00:00:00',
             'updatedAt' => '2020-01-01 00:00:00',
@@ -79,7 +85,8 @@ describe("DomainTransaction Unit Tests", function () {
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
-            'pix' => $this->pix->toArray(),
+            "kind" => "email",
+            "key" => 'test@test.com',
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
@@ -92,7 +99,8 @@ describe("DomainTransaction Unit Tests", function () {
             'reference' => '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
             'description' => 'testing',
             'value' => 50,
-            'pix' => $this->pix,
+            "kind" => EnumPixType::EMAIL,
+            "key" => 'test@test.com',
             'status' => EnumTransactionStatus::from('confirmed'),
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'createdAt' => '2020-01-01 00:00:00',
@@ -108,7 +116,8 @@ describe("DomainTransaction Unit Tests", function () {
             reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
             description: 'testing',
             value: 50,
-            pix: $this->pix,
+            kind: EnumPixType::EMAIL,
+            key: 'test@test.com'
         );
 
         $entity->error('testing');
@@ -123,7 +132,8 @@ describe("DomainTransaction Unit Tests", function () {
                 reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
-                pix: $this->pix,
+                kind: EnumPixType::EMAIL,
+                key: 'test@test.com'
             );
             $entity->confirmed();
             assertEquals('confirmed', $entity->status->value);
@@ -135,7 +145,8 @@ describe("DomainTransaction Unit Tests", function () {
                 reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
-                pix: $this->pix,
+                kind: EnumPixType::EMAIL,
+                key: 'test@test.com'
             );
             $entity->confirmed();
 
@@ -152,7 +163,8 @@ describe("DomainTransaction Unit Tests", function () {
                 reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
-                pix: $this->pix,
+                kind: EnumPixType::EMAIL,
+                key: 'test@test.com'
             );
             $entity->confirmed()->completed();
             assertEquals('completed', $entity->status->value);
@@ -164,7 +176,8 @@ describe("DomainTransaction Unit Tests", function () {
                 reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                 description: 'testing',
                 value: 50,
-                pix: $this->pix,
+                kind: EnumPixType::EMAIL,
+                key: 'test@test.com'
             );
             expect(fn() => $entity->completed())->toThrow(
                 new EntityException('Only confirmed transactions can be completed')
@@ -180,7 +193,8 @@ describe("DomainTransaction Unit Tests", function () {
                     reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                     description: 'testing',
                     value: 0,
-                    pix: $this->pix,
+                    kind: EnumPixType::EMAIL,
+                    key: 'test@test.com'
                 ))->toThrow(NotificationException::class);
             });
 
@@ -190,7 +204,8 @@ describe("DomainTransaction Unit Tests", function () {
                     reference: new Uuid('22e7e7e3-2f38-4c06-b9e7-12335b45a0db'),
                     description: 'te',
                     value: 0.01,
-                    pix: $this->pix,
+                    kind: EnumPixType::EMAIL,
+                    key: 'test@test.com'
                 ))->toThrow(NotificationException::class);
             });
         });
@@ -202,7 +217,8 @@ describe("DomainTransaction Unit Tests", function () {
                     reference: '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
                     description: 'testing',
                     value: 0,
-                    pix: $this->pix,
+                    kind: EnumPixType::EMAIL,
+                    key: 'test@test.com'
                 ))->toThrow(NotificationException::class);
             });
 
@@ -212,7 +228,8 @@ describe("DomainTransaction Unit Tests", function () {
                     reference: '22e7e7e3-2f38-4c06-b9e7-12335b45a0db',
                     description: 'te',
                     value: 0.01,
-                    pix: $this->pix,
+                    kind: EnumPixType::EMAIL,
+                    key: 'test@test.com'
                 ))->toThrow(NotificationException::class);
             });
         });

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CodePix\System\Domain;
 
+use CodePix\System\Domain\Enum\EnumPixType;
 use CodePix\System\Domain\Enum\EnumTransactionStatus;
 use Costa\Entity\Data;
 use Costa\Entity\Exceptions\EntityException;
@@ -20,7 +21,8 @@ class DomainTransaction extends Data
         protected Uuid $reference,
         protected string $description,
         protected float $value,
-        protected DomainPixKey $pix,
+        protected EnumPixType $kind,
+        protected string $key,
     ) {
         parent::__construct();
     }
