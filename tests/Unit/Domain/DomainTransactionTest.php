@@ -72,7 +72,7 @@ describe("DomainTransaction Unit Tests", function () {
         ], $transaction->toArray());
     });
 
-    test("Testing a mock function", function(){
+    test("testing a mock function", function(){
         $mock = mockDomainTransaction();
         assertInstanceOf(DomainTransaction::class, $mock);
         assertInstanceOf(Data::class, $mock);
