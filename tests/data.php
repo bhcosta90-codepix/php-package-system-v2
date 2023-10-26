@@ -5,8 +5,28 @@ declare(strict_types=1);
 namespace Tests;
 
 use CodePix\System\Domain\DomainPixKey;
+use CodePix\System\Domain\DomainTransaction;
 use CodePix\System\Domain\Enum\EnumPixType;
 use Costa\Entity\ValueObject\Uuid;
+use Mockery\MockInterface;
+
+function mockTimes(MockInterface $mock, string $action, $response = null, $times = 1): void
+{
+    if ($response) {
+        $mock->shouldReceive($action)->times($times)->andReturn($response);
+    } else {
+        $mock->shouldReceive($action)->times($times);
+    }
+}
+
+function dataDomainTransaction(): DomainTransaction
+{
+    return new DomainTransaction(
+        description: 'testing',
+        value: 50,
+        pix: dataDomainPixKey(),
+    );
+}
 
 function dataDomainPixKey(): DomainPixKey
 {

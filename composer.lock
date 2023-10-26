@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bhcosta90/php-domain-package.git",
-                "reference": "6091450b5cd6646c334e248ee1563a7ab4e2ace2"
+                "reference": "55c495bd49d6c0d11ec90366456710ad32bf7d39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bhcosta90/php-domain-package/zipball/6091450b5cd6646c334e248ee1563a7ab4e2ace2",
-                "reference": "6091450b5cd6646c334e248ee1563a7ab4e2ace2",
+                "url": "https://api.github.com/repos/bhcosta90/php-domain-package/zipball/55c495bd49d6c0d11ec90366456710ad32bf7d39",
+                "reference": "55c495bd49d6c0d11ec90366456710ad32bf7d39",
                 "shasum": ""
             },
             "require": {
@@ -62,7 +62,7 @@
                 "source": "https://github.com/bhcosta90/php-domain-package/tree/master",
                 "issues": "https://github.com/bhcosta90/php-domain-package/issues"
             },
-            "time": "2023-10-26T13:18:19+00:00"
+            "time": "2023-10-26T13:56:22+00:00"
         },
         {
             "name": "bhcosta90/entity",
