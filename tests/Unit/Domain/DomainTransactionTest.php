@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use CodePix\System\Domain\DomainTransaction;
+use CodePix\System\Domain\Enum\EnumTransactionStatus;
 use Costa\Entity\Exceptions\NotificationException;
 
 use function PHPUnit\Framework\assertEquals;
@@ -12,7 +13,7 @@ beforeEach(fn() => $this->pix = dataDomainPixKey());
 
 describe("DomainTransaction Unit Tests", function () {
     test("creating a new transaction", function () {
-        $transaction = new DomainTransaction(
+        $entity = new DomainTransaction(
             description: 'testing',
             value: 50,
             pix: $this->pix,
@@ -22,14 +23,15 @@ describe("DomainTransaction Unit Tests", function () {
             'description' => 'testing',
             'value' => 50,
             'pix' => $this->pix->toArray(),
-            'id' => $transaction->id(),
-            'created_at' => $transaction->createdAt(),
-            'updated_at' => $transaction->updatedAt(),
-        ], $transaction->toArray());
+            'id' => $entity->id(),
+            'created_at' => $entity->createdAt(),
+            'updated_at' => $entity->updatedAt(),
+            'status' => 'pending',
+        ], $entity->toArray());
     });
 
     test("making a transaction", function () {
-        $transaction = DomainTransaction::make([
+        $entity = DomainTransaction::make([
             'description' => 'testing',
             'value' => 50,
             'pix' => $this->pix,
@@ -45,9 +47,10 @@ describe("DomainTransaction Unit Tests", function () {
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
-        ], $transaction->toArray());
+            'status' => 'pending',
+        ], $entity->toArray());
 
-        $transaction = DomainTransaction::make([
+        $entity = DomainTransaction::make([
             'description' => 'testing',
             'value' => 50,
             'pix' => $this->pix,
@@ -63,7 +66,20 @@ describe("DomainTransaction Unit Tests", function () {
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
-        ], $transaction->toArray());
+            'status' => 'pending',
+        ], $entity->toArray());
+
+        $entity = DomainTransaction::make([
+            'description' => 'testing',
+            'value' => 50,
+            'pix' => $this->pix,
+            'status' => EnumTransactionStatus::from('confirmed'),
+            'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
+            'createdAt' => '2020-01-01 00:00:00',
+            'updatedAt' => '2020-01-01 00:00:00',
+        ]);
+
+        assertEquals('confirmed', $entity->status->value);
     });
 
     describe("validation an entity", function () {
