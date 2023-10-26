@@ -6,6 +6,7 @@ namespace CodePix\System\Domain;
 
 use CodePix\System\Domain\Enum\EnumTransactionStatus;
 use Costa\Entity\Data;
+use Costa\Entity\Exceptions\EntityException;
 
 class DomainTransaction extends Data
 {
@@ -29,16 +30,36 @@ class DomainTransaction extends Data
         ];
     }
 
-    public function error(string $message): void
+    public function error(string $message): self
     {
         $this->cancelDescription = $message;
         $this->status = EnumTransactionStatus::ERROR;
+        return $this;
     }
 
-    public function confirmed(): void
+    /**
+     * @throws EntityException
+     */
+    public function confirmed(): self
     {
         if ($this->status === EnumTransactionStatus::PENDING) {
             $this->status = EnumTransactionStatus::CONFIRMED;
+            return $this;
         }
+
+        throw new EntityException('Only pending transaction can be confirmed');
+    }
+
+    /**
+     * @throws EntityException
+     */
+    public function completed(): self
+    {
+        if ($this->status === EnumTransactionStatus::CONFIRMED) {
+            $this->status = EnumTransactionStatus::COMPLETED;
+            return $this;
+        }
+
+        throw new EntityException('Only confirmed transactions can be completed');
     }
 }

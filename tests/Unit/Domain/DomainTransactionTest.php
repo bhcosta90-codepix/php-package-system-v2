@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use CodePix\System\Domain\DomainTransaction;
 use CodePix\System\Domain\Enum\EnumTransactionStatus;
+use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\Exceptions\NotificationException;
 
 use function PHPUnit\Framework\assertEquals;
@@ -97,14 +98,48 @@ describe("DomainTransaction Unit Tests", function () {
         assertEquals('testing', $entity->cancelDescription);
     });
 
-    test("setting confirmation a transaction", function(){
-        $entity = new DomainTransaction(
-            description: 'testing',
-            value: 50,
-            pix: $this->pix,
-        );
-        $entity->confirmed();
-        assertEquals('confirmed', $entity->status->value);
+    describe("setting confirmation a transaction", function(){
+        test("success", function(){
+            $entity = new DomainTransaction(
+                description: 'testing',
+                value: 50,
+                pix: $this->pix,
+            );
+            $entity->confirmed();
+            assertEquals('confirmed', $entity->status->value);
+        });
+
+        test("error", function(){
+            $entity = new DomainTransaction(
+                description: 'testing',
+                value: 50,
+                pix: $this->pix,
+            );
+            $entity->confirmed();
+
+            expect(fn() => $entity->confirmed())->toThrow(new EntityException('Only pending transaction can be confirmed'));
+        });
+    });
+
+    describe("setting completed a transaction", function(){
+        test("success", function(){
+            $entity = new DomainTransaction(
+                description: 'testing',
+                value: 50,
+                pix: $this->pix,
+            );
+            $entity->confirmed()->completed();
+            assertEquals('completed', $entity->status->value);
+        });
+
+        test("error", function(){
+            $entity = new DomainTransaction(
+                description: 'testing',
+                value: 50,
+                pix: $this->pix,
+            );
+            expect(fn() => $entity->completed())->toThrow(new EntityException('Only confirmed transactions can be completed'));
+        });
     });
 
     describe("validation an entity", function () {
