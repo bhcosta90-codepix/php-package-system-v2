@@ -27,6 +27,7 @@ describe("DomainTransaction Unit Tests", function () {
             'created_at' => $entity->createdAt(),
             'updated_at' => $entity->updatedAt(),
             'status' => 'pending',
+            'cancel_description' => null,
         ], $entity->toArray());
     });
 
@@ -48,6 +49,7 @@ describe("DomainTransaction Unit Tests", function () {
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
             'status' => 'pending',
+            'cancel_description' => null,
         ], $entity->toArray());
 
         $entity = DomainTransaction::make([
@@ -67,6 +69,7 @@ describe("DomainTransaction Unit Tests", function () {
             'created_at' => '2020-01-01 00:00:00',
             'updated_at' => '2020-01-01 00:00:00',
             'status' => 'pending',
+            'cancel_description' => null,
         ], $entity->toArray());
 
         $entity = DomainTransaction::make([
@@ -80,6 +83,18 @@ describe("DomainTransaction Unit Tests", function () {
         ]);
 
         assertEquals('confirmed', $entity->status->value);
+    });
+
+    test("setting a error at transaction", function(){
+        $entity = new DomainTransaction(
+            description: 'testing',
+            value: 50,
+            pix: $this->pix,
+        );
+
+        $entity->error('testing');
+        assertEquals('error', $entity->status->value);
+        assertEquals('testing', $entity->cancelDescription);
     });
 
     describe("validation an entity", function () {
