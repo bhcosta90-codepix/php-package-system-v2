@@ -25,7 +25,8 @@ function dataDomainTransaction(): array
         "reference" => Uuid::make(),
         "description" => 'testing',
         "value" => 50,
-        "pix" => new DomainPixKey(...dataDomainPixKey()),
+        "kind" => EnumPixType::EMAIL,
+        "key" => "test@test.com",
     ];
 }
 

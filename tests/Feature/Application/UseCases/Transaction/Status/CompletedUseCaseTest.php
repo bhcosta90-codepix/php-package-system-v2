@@ -8,44 +8,24 @@ use CodePix\System\Application\Repository\TransactionRepositoryInterface;
 use CodePix\System\Application\UseCases\Transaction\Status\CompletedUseCase;
 use CodePix\System\Domain\DomainTransaction;
 
+use CodePix\System\Domain\Enum\EnumTransactionStatus;
+use Tests\Stubs\Repository\TransactionRepository;
+
+use function PHPUnit\Framework\assertEquals;
 use function Tests\dataDomainTransaction;
 use function Tests\mockTimes;
 
 
 describe("CompletedUseCase Unit Test", function () {
     test("save a transaction", function () {
-        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
-        mockTimes($mockDomainTransaction, 'completed');
+        $transaction = new DomainTransaction(...dataDomainTransaction());
+        $transaction->pending()->confirmed();
 
-        $transactionRepository = mock(TransactionRepositoryInterface::class);
-        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
-        mockTimes($transactionRepository, 'save', $mockDomainTransaction);
-
-        $useCase = new CompletedUseCase(transactionRepository: $transactionRepository);
-        $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60');
-    })->todo();
-
-    test("exception when find a transaction", function () {
-        $transactionRepository = mock(TransactionRepositoryInterface::class);
-        mockTimes($transactionRepository, 'find');
+        $transactionRepository = new TransactionRepository();
+        $transactionRepository->create($transaction);
 
         $useCase = new CompletedUseCase(transactionRepository: $transactionRepository);
-        expect(fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
-            new DomainNotFoundException(DomainTransaction::class, "7b9ad99b-7c44-461b-a682-b2e87e9c3c60")
-        );
-    })->todo();
-
-    test("exception when save a transaction", function () {
-        $mockDomainTransaction = mock(DomainTransaction::class, dataDomainTransaction());
-        mockTimes($mockDomainTransaction, 'completed');
-
-        $transactionRepository = mock(TransactionRepositoryInterface::class);
-        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
-        mockTimes($transactionRepository, 'save');
-
-        $useCase = new CompletedUseCase(transactionRepository: $transactionRepository);
-        expect(fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
-            new UseCaseException("An error occurred while saving this transaction")
-        );
-    })->todo();
+        $response = $useCase->exec($transaction->id());
+        assertEquals(EnumTransactionStatus::COMPLETED, $response->status);
+    });
 });

@@ -32,7 +32,7 @@ class TransactionRepository implements TransactionRepositoryInterface
     public function find(string $id): ?DomainTransaction
     {
         foreach ($this->data as $data) {
-            if ((string)$data->id = $id) {
+            if ((string)$data->id == $id) {
                 return $data;
             }
         }
