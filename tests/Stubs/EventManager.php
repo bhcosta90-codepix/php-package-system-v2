@@ -11,7 +11,7 @@ class EventManager implements EventManagerInterface
 {
     public function dispatch(array $events): void
     {
-        dump($events);
+        //
     }
 
 }
