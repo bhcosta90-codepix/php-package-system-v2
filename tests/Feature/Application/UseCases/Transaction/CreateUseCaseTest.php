@@ -58,6 +58,6 @@ describe("CreateUseCase Feature Test", function () {
         );
 
         assertEquals($response->status, EnumTransactionStatus::ERROR);
-        assertEquals($response->cancelDescription, 'Pix not found');
+        assertEquals($response->cancelDescription, 'PIX not found');
     });
 });

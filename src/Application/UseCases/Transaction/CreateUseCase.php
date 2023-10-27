@@ -47,7 +47,7 @@ class CreateUseCase
         );
 
         if (!$this->pixKeyRepository->find($kind, $key)) {
-            $response->error("Pix not found");
+            $response->error("PIX not found");
         } else {
             $response->pending();
         }
