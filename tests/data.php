@@ -32,6 +32,7 @@ function arrayDomainTransaction(): array
 function arrayDomainPixKey(): array
 {
     return [
+        "bank" => Uuid::make(),
         "kind" => EnumPixType::EMAIL,
         "key" => 'test@test.com',
     ];

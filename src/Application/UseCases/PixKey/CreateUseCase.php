@@ -10,6 +10,7 @@ use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\Enum\EnumPixType;
 use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\Exceptions\NotificationException;
+use Costa\Entity\ValueObject\Uuid;
 
 class CreateUseCase
 {
@@ -23,10 +24,11 @@ class CreateUseCase
      * @throws UseCaseException
      * @throws EntityException
      */
-    public function exec(string $kind, ?string $key): DomainPixKey
+    public function exec(string $bank, string $kind, ?string $key): DomainPixKey
     {
         $kind = EnumPixType::from($kind);
         $response = new DomainPixKey(
+            bank: new Uuid($bank),
             kind: $kind,
             key: $key,
         );

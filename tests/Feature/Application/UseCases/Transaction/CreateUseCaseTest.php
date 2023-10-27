@@ -6,6 +6,7 @@ use CodePix\System\Application\UseCases\Transaction\CreateUseCase;
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\Enum\EnumPixType;
 use CodePix\System\Domain\Enum\EnumTransactionStatus;
+use Costa\Entity\ValueObject\Uuid;
 use Tests\Stubs\EventManager;
 use Tests\Stubs\Repository\PixKeyRepository;
 use Tests\Stubs\Repository\TransactionRepository;
@@ -15,7 +16,7 @@ use function PHPUnit\Framework\assertEquals;
 describe("CreateUseCase Feature Test", function () {
     test("create a new entity", function () {
         $pixKeyRepository = new PixKeyRepository();
-        $pixKeyRepository->create(new DomainPixKey(EnumPixType::EMAIL, "test@test.com"));
+        $pixKeyRepository->create(new DomainPixKey(Uuid::make(), EnumPixType::EMAIL, "test@test.com"));
 
         $transactionRepository = new TransactionRepository();
 

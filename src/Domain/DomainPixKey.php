@@ -11,6 +11,7 @@ use Costa\Entity\ValueObject\Uuid;
 class DomainPixKey extends Data
 {
     public function __construct(
+        protected Uuid $bank,
         protected EnumPixType $kind,
         protected ?string $key,
     ) {

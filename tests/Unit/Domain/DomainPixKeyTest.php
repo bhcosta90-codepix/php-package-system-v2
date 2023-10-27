@@ -5,17 +5,21 @@ declare(strict_types=1);
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\Enum\EnumPixType;
 
+use Costa\Entity\ValueObject\Uuid;
+
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotNull;
 
 describe("DomainPixKey Unit Tests", function () {
     test("creating a new transaction", function () {
         $entity = new DomainPixKey(
+            bank: $bank = mock(Uuid::class),
             kind: EnumPixType::EMAIL,
             key: 'test@test.com',
         );
 
         assertEquals([
+            'bank' => $bank,
             'kind' => 'email',
             'key' => 'test@test.com',
             'id' => $entity->id(),
@@ -24,6 +28,7 @@ describe("DomainPixKey Unit Tests", function () {
         ], $entity->toArray());
 
         $entity = new DomainPixKey(
+            bank: mock(Uuid::class),
             kind: EnumPixType::ID,
             key: '4393e8bc-73f7-11ee-b962-0242ac120002',
         );
@@ -31,6 +36,7 @@ describe("DomainPixKey Unit Tests", function () {
         assertEquals('4393e8bc-73f7-11ee-b962-0242ac120002', $entity->key);
 
         $entity = DomainPixKey::make(
+            bank: mock(Uuid::class),
             kind: EnumPixType::ID,
             key: '4393e8bc-73f7-11ee-b962-0242ac120002',
         );
@@ -40,6 +46,7 @@ describe("DomainPixKey Unit Tests", function () {
 
     test("making a transaction", function () {
         $entity = DomainPixKey::make([
+            "bank" => $bank = mock(Uuid::class),
             "kind" => EnumPixType::EMAIL,
             "key" => 'test@test.com',
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
@@ -48,6 +55,7 @@ describe("DomainPixKey Unit Tests", function () {
         ]);
 
         assertEquals([
+            "bank" => $bank,
             "kind" => "email",
             "key" => 'test@test.com',
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
@@ -56,6 +64,7 @@ describe("DomainPixKey Unit Tests", function () {
         ], $entity->toArray());
 
         $entity = DomainPixKey::make([
+            "bank" => $bank = mock(Uuid::class),
             "kind" => EnumPixType::EMAIL,
             "key" => 'test@test.com',
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
@@ -64,6 +73,7 @@ describe("DomainPixKey Unit Tests", function () {
         ]);
 
         assertEquals([
+            "bank" => $bank,
             "kind" => "email",
             "key" => 'test@test.com',
             'id' => '4393e8bc-73f7-11ee-b962-0242ac120002',
@@ -74,6 +84,7 @@ describe("DomainPixKey Unit Tests", function () {
 
     test("creating a new pix key with type id", function () {
         $entity = new DomainPixKey(
+            bank: mock(Uuid::class),
             kind: EnumPixType::ID,
             key: null,
         );
