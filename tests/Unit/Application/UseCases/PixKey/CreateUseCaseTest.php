@@ -20,7 +20,11 @@ describe("CreateUseCase Unit Test", function () {
         mockTimes($pixKeyRepository, 'create', $mockDomainPixKey);
 
         $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository);
-        $response = $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c61', 'id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60');
+        $response = $useCase->exec(
+            '7b9ad99b-7c44-461b-a682-b2e87e9c3c61',
+            'id',
+            '7b9ad99b-7c44-461b-a682-b2e87e9c3c60'
+        );
 
         assertEquals($mockDomainPixKey, $response);
     });
@@ -32,7 +36,9 @@ describe("CreateUseCase Unit Test", function () {
         mockTimes($pixKeyRepository, 'find', $mockDomainPixKey);
 
         $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository);
-        expect(fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c61', 'id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
+        expect(
+            fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c61', 'id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60')
+        )->toThrow(
             new EntityException("This pix is already registered in our database")
         );
     });
@@ -43,7 +49,9 @@ describe("CreateUseCase Unit Test", function () {
         mockTimes($pixKeyRepository, 'create');
 
         $useCase = new CreateUseCase(pixKeyRepository: $pixKeyRepository);
-        expect(fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c61', 'id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60'))->toThrow(
+        expect(
+            fn() => $useCase->exec('7b9ad99b-7c44-461b-a682-b2e87e9c3c61', 'id', '7b9ad99b-7c44-461b-a682-b2e87e9c3c60')
+        )->toThrow(
             new UseCaseException("We were unable to register this pix in our database")
         );
     });

@@ -67,7 +67,7 @@ class DomainTransaction extends Data
     {
         if ($this->status === EnumTransactionStatus::CONFIRMED) {
             $this->status = EnumTransactionStatus::COMPLETED;
-            $this->addEvent(new EventTransactionCompleted($this->bank, (string) $this->reference));
+            $this->addEvent(new EventTransactionCompleted($this->bank, (string)$this->reference));
             return $this;
         }
 

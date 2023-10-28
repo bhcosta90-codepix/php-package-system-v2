@@ -1,5 +1,5 @@
 {
-    "name": "bhcosta90/package-system-v2",
+    "name": "bhcosta90/package-system",
     "autoload": {
         "psr-4": {
             "CodePix\\System\\": "src/"
