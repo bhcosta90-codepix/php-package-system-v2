@@ -39,5 +39,15 @@ class TransactionRepository implements TransactionRepositoryInterface
         return null;
     }
 
+    public function byReference(string $reference): ?DomainTransaction
+    {
+        foreach ($this->data as $data) {
+            if ((string)$data->reference == $reference) {
+                return $data;
+            }
+        }
+        return null;
+    }
+
 
 }

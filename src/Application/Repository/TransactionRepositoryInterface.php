@@ -10,6 +10,8 @@ interface TransactionRepositoryInterface
 {
     public function find(string $id): ?DomainTransaction;
 
+    public function byReference(string $reference): ?DomainTransaction;
+
     public function create(DomainTransaction $entity): ?DomainTransaction;
 
     public function save(DomainTransaction $entity): ?DomainTransaction;

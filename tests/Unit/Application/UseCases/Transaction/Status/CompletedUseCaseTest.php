@@ -19,7 +19,7 @@ describe("CompletedUseCase Unit Test", function () {
         mockTimes($mockDomainTransaction, 'getEvents');
 
         $transactionRepository = mock(TransactionRepositoryInterface::class);
-        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
+        mockTimes($transactionRepository, 'byReference', $mockDomainTransaction);
         mockTimes($transactionRepository, 'save', $mockDomainTransaction);
 
         $mockEventManager = mock(EventManagerInterface::class);
@@ -32,7 +32,7 @@ describe("CompletedUseCase Unit Test", function () {
 
     test("exception when find a transaction", function () {
         $transactionRepository = mock(TransactionRepositoryInterface::class);
-        mockTimes($transactionRepository, 'find');
+        mockTimes($transactionRepository, 'byReference');
 
         $mockEventManager = mock(EventManagerInterface::class);
         $useCase = new CompletedUseCase(transactionRepository: $transactionRepository, eventManager: $mockEventManager);
@@ -48,7 +48,7 @@ describe("CompletedUseCase Unit Test", function () {
         mockTimes($mockDomainTransaction, 'getEvents');
 
         $transactionRepository = mock(TransactionRepositoryInterface::class);
-        mockTimes($transactionRepository, 'find', $mockDomainTransaction);
+        mockTimes($transactionRepository, 'byReference', $mockDomainTransaction);
         mockTimes($transactionRepository, 'save');
 
         $mockEventManager = mock(EventManagerInterface::class);

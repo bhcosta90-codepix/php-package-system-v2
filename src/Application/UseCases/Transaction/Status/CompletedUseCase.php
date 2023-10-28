@@ -27,7 +27,7 @@ class CompletedUseCase
      */
     public function exec(string $id): DomainTransaction
     {
-        $response = $this->transactionRepository->find($id) ?: throw new DomainNotFoundException(
+        $response = $this->transactionRepository->byReference($id) ?: throw new DomainNotFoundException(
             DomainTransaction::class,
             $id
         );

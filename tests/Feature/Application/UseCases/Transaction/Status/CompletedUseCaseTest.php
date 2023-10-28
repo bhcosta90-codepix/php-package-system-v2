@@ -23,7 +23,7 @@ describe("CompletedUseCase Feature Test", function () {
         $useCase = new CompletedUseCase(
             transactionRepository: $transactionRepository, eventManager: new EventManager()
         );
-        $response = $useCase->exec($transaction->id());
+        $response = $useCase->exec((string) $transaction->reference);
         assertEquals(EnumTransactionStatus::COMPLETED, $response->status);
     });
 });
