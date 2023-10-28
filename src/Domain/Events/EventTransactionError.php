@@ -9,7 +9,7 @@ use Costa\Entity\ValueObject\Uuid;
 
 class EventTransactionError implements EventInterface
 {
-    public function __construct(protected Uuid $bank, protected Uuid $id)
+    public function __construct(protected Uuid $bank, protected Uuid $id, protected string $message)
     {
         //
     }
@@ -19,6 +19,7 @@ class EventTransactionError implements EventInterface
         return [
             'bank' => (string)$this->bank,
             'id' => (string)$this->id,
+            'message' => $this->message,
         ];
     }
 }

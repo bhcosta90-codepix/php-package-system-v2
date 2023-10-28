@@ -42,7 +42,7 @@ class DomainTransaction extends Data
     {
         $this->cancelDescription = $message;
         $this->status = EnumTransactionStatus::ERROR;
-        $this->addEvent(new EventTransactionError($this->bank, $this->reference));
+        $this->addEvent(new EventTransactionError($this->bank, $this->reference, $message));
         return $this;
     }
 
