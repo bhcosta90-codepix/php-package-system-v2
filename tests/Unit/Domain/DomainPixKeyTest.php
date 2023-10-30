@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use CodePix\System\Domain\DomainPixKey;
 use CodePix\System\Domain\Enum\EnumPixType;
+use Costa\Entity\Exceptions\EntityException;
 use Costa\Entity\ValueObject\Uuid;
 
 use function PHPUnit\Framework\assertEquals;
@@ -89,5 +90,32 @@ describe("DomainPixKey Unit Tests", function () {
         );
 
         assertNotNull($entity->key);
+    });
+
+    describe("creating a new pix with document field", function(){
+        test("with success", function(){
+            $entity = new DomainPixKey(
+                bank: $bank = mock(Uuid::class),
+                kind: EnumPixType::DOCUMENT,
+                key: '588.453.262-84',
+            );
+
+            assertEquals([
+                'bank' => $bank,
+                'kind' => 'document',
+                'key' => '58845326284',
+                'id' => $entity->id(),
+                'created_at' => $entity->createdAt(),
+                'updated_at' => $entity->updatedAt(),
+            ], $entity->toArray());
+        });
+
+        test("with error cpf", function(){
+            expect(fn() => new DomainPixKey(
+                bank: mock(Uuid::class),
+                kind: EnumPixType::DOCUMENT,
+                key: '588.453.262-83',
+            ))->toThrow(new EntityException('CPF Invalid'));
+        });
     });
 });
